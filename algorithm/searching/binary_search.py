@@ -19,7 +19,7 @@ l = [i ** 2 for i in range(11)]
 target = 9
 idx = binary_search(target, l)
 
-if idx:
+if idx != None:
     print(l[idx])
 else:
     print("찾으시는 타겟 {}가 없습니다".forma(target))

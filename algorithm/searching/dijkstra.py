@@ -9,6 +9,7 @@ n, m = map(int, input().split())
 start = int(input())
 graph = [[] for _ in range(n + 1)]
 distance = [INF for _ in range(n + 1)]
+visited = [False for _ in range(n + 1)]
 
 for _ in range(m):
     a, b, c = map(int, input().split())
@@ -21,8 +22,9 @@ def dijkstra(start):
     heapq.heappush(q, (distance[start], start))
     while q:
         dist, curr = heapq.heappop(q)
-        if distance[curr] < dist:
+        if visited[curr]:
             continue
+        visited[curr] = True
         for next_ in graph[curr]:
             cost = dist + next_[1]
             if distance[next_[0]] > cost:

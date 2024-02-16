@@ -1,7 +1,14 @@
+# 경로 압축 find
 def find(x):
     if parent[x] != x:
         parent[x] = find(parent[x])
     return parent[x]
+
+# 일반 find
+# def find(x):
+#     if parent[x] != x:
+#         return find(parent[x])
+#     return x
 
 def union(a, b):
     a = find(a)

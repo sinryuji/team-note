@@ -22,10 +22,14 @@ for _ in range(E):
 parent = [i for i in range(V + 1)]
 edges.sort(key=lambda x : x[2])
 ans = 0
+cnt = 0
 
 for a, b, dist in edges:
     if find(a) != find(b):
         union(a, b)
         ans += dist
+
+    if cnt == V:
+        break
 
 print(ans)

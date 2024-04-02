@@ -5,6 +5,7 @@ def combination(arr, r):
     def generate(chosen):
         if len(chosen) == r:
             result.append(chosen.copy())
+            return
 
         start = arr.index(chosen[-1]) + 1 if chosen else 0
         for nxt in range(start, len(arr)):

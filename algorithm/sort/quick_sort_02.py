@@ -17,6 +17,6 @@ def quick_sort(arr, start, end):
     quick_sort(arr, start, right - 1)
     quick_sort(arr, right + 1, end)
 
-arr = [5, 3, 7, 6, 10, 9, 7, 8, 4]
+arr = [5, 3, 7, 2, 6, 10, 2, 9, 2, 7, 8, 4]
 quick_sort(arr, 0, len(arr) - 1)
 print(arr)

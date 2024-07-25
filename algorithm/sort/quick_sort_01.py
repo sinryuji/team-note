@@ -12,5 +12,5 @@ def quick_sort(arr):
             equal.append(num)
     return quick_sort(lesser) + equal + quick_sort(greater)
 
-arr = [5, 3, 7, 6, 10, 9, 7, 8, 4]
+arr = [5, 3, 7, 2, 6, 10, 2, 9, 2, 7, 8, 4]
 print(quick_sort(arr))

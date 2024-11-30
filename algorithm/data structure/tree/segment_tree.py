@@ -32,24 +32,46 @@ def interval_sum(start, end, index, left, right):
     # start와 end가 변하면서 구간 합인 부분을 더해준다고 생각하면 된다.
     return interval_sum(start, mid, index * 2, left, right) + interval_sum(mid + 1, end, index * 2 + 1, left, right)
 
-# <특정 원소의 값을 수정하는 함수>
+# <특정 원소의 값을 수정하는 함수(Top down)>
 # 특정 원소를 수정하면 구간 합이 당연히 달라진다.
 # 이때, 해당 원소를 포함하고 있는 모든 구간 합 노드들을 갱신해주면 된다.
 # (즉, 전체가 아닌 부분적인 노드들만 바꿔주면 된다!)
-# start : 시작 인덱스, end : 마지막 인덱스
-# what : 구간 합을 수정하고자 하는 노드
+# target : 구간 합을 수정하고자 하는 노드
 # value : 수정할 값
-def update(start, end, index, what, value):
+def update_top_down(N, target, value):
+    diff = value - arr[target]
+    arr[target] = value
+    update_tree_top_down(0, N - 1, 1, target, diff)
+
+def update_tree_top_down(start, end, index, target, diff):
     # 범위 밖에 있는 경우
-    if what < start or what > end:
+    if target < start or target > end:
         return
-    # 범위 안에 있으면 내려가면서 다른 원소도 갱신
-    tree[index] += value
+    # 범위 안일 경우 차이 만큼 수정
+
+    tree[index] += diff
     if start == end:
         return
     mid = (start + end) // 2
-    update(start, mid, index * 2, what, value)
-    update(mid + 1, end, index * 2 + 1, what, value)
+    update_tree_top_down(start, mid, index * 2, target, diff)
+    update_tree_top_down(mid + 1, end, index * 2 + 1, target, diff)
+
+# <특정 원소의 값을 수정하는 함수(Bottom up)>
+def update_bottom_up(start, end, index, target, value):
+    # 범위 밖에 있는 경우
+    if target < start or target > end:
+        return
+    # 리프 노드를 만났을 경우
+    if start == end:
+        arr[target] = value
+        tree[index] = value
+        return
+
+    mid = (start + end) // 2
+    update_bottom_up(start, mid, index * 2, target, value)
+    update_bottom_up(mid + 1, end, index * 2 + 1, target, value)
+
+    tree[index] = tree[index * 2] + tree[index * 2 + 1]
 
 
 init(0, len(arr) - 1, 1)
@@ -58,10 +80,11 @@ print(interval_sum(0, len(arr) - 1, 1, 0, 9))  # 0부터 9까지의 구간 합 (
 print(interval_sum(0, len(arr) - 1, 1, 0, 2))  # 0부터 2까지의 구간 합 (1 + 2 + 3)
 print(interval_sum(0, len(arr) - 1, 1, 6, 7))  # 0부터 2까지의 구간 합 (7 + 8)
 
-# arr[0]을 +4만큼 수정
-update(0, len(arr) - 1, 1, 0, 4)
-print(interval_sum(0, len(arr) - 1, 1, 0, 2))   # 0부터 2까지의 구간 합 ((1 + 4) + 2 + 3)
+# arr[0]을 5로 수정
+update_top_down(len(arr), 0, 5)
+print(interval_sum(0, len(arr) - 1, 1, 0, 2))   # 0부터 2까지의 구간 합 (5 + 2 + 3)
 
-# arr[9]를 -11만큼 수정
-update(0, len(arr) - 1, 1, 9, -11)
-print(interval_sum(0, len(arr) - 1, 1, 8, 9))   # 8부터 9까지의 구간 합 (9 + (10 - 11))
+# arr[9]를 -1 수정
+update_bottom_up(0, len(arr) - 1, 1, 9, -1)
+update_top_down(len(arr), 9, -1)
+print(interval_sum(0, len(arr) - 1, 1, 8, 9))   # 8부터 9까지의 구간 합 (9 + -1)

@@ -6,7 +6,7 @@ def bisection_right(array, target):
             left = mid + 1
         else:
             right = mid
-    return right
+    return left
 
 
 list = [1, 2, 2, 2, 2, 3, 4]

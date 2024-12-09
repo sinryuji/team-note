@@ -1,9 +1,9 @@
 def bisection_right(array, target):
-    left, right = 0, len(array) - 1
-    while left <= right:
+    left, right = 0, len(array)
+    while left < right:
         mid = (left + right) // 2
         if array[mid] > target:
-            right = mid - 1
+            right = mid
         else:
             left = mid + 1
     return right
@@ -12,3 +12,4 @@ def bisection_right(array, target):
 list = [1, 2, 2, 2, 2, 3, 4]
 
 print(bisection_right(list, 2))
+print(bisection_right(list, 5))

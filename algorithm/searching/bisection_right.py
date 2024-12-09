@@ -2,10 +2,10 @@ def bisection_right(array, target):
     left, right = 0, len(array)
     while left < right:
         mid = (left + right) // 2
-        if array[mid] > target:
-            right = mid
-        else:
+        if array[mid] <= target:
             left = mid + 1
+        else:
+            right = mid
     return right
 
 

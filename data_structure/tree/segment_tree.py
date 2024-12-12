@@ -86,5 +86,4 @@ print(find(0, len(arr) - 1, 1, 0, 2))   # 0부터 2까지의 구간 합 (5 + 2 +
 
 # arr[9]를 -1 수정
 update_bottom_up(0, len(arr) - 1, 1, 9, -1)
-update_top_down(len(arr), 9, -1)
 print(find(0, len(arr) - 1, 1, 8, 9))   # 8부터 9까지의 구간 합 (9 + -1)

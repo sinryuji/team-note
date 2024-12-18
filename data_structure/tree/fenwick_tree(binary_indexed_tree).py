@@ -4,7 +4,7 @@ input = sys.stdin.readline
 
 N, M, K = map(int, input().split())
 arr = [0] * (N + 1)
-tree = [0] (N + 1)
+tree = [0] * (N + 1)
 
 # [1, i]의 누적합
 def prefix_sum(i):
